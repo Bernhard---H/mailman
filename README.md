@@ -177,7 +177,7 @@ _These steps need to be done BEFORE you build Mailman!_
 
 ---
 
-To generate a random hash you can use command in your terminal:
+To generate a random hash you can use this command in your terminal:
 
 ```bash
 head /dev/urandom | tr -dc A-Za-z0-9 | head -c 128 ; echo ''
