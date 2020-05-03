@@ -1,0 +1,31 @@
+version: '3'
+services:
+
+  mariadb:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vmail
+      MYSQL_USER: vmail
+      MYSQL_PASSWORD: vmail
+    volumes:
+      - database:/var/lib/mysql
+      - ./.dev:/docker-entrypoint-initdb.d
+
+  web:
+    build: .
+    ports:
+     - "4000:4000"
+    links:
+      - mariadb
+    environment:
+      MAILMAN_SECRET: fzZEQEnCiZdh9JAQKSbYaASm4z8yKVUD0qJxnrPfARRe3BLBlHWzHZhhv8BbYR8xxIoWLSSTvT0Sr0DRKf7G3IN75mVEHDkE8jDudbx57iJP9R8SjhFgLW3hrM1YS6mUyIIRFRCs6tNS8rRkdipHblurkyhl4wi
+      MAILMAN_DB_HOST: mariadb
+      MAILMAN_DB_USER: vmail
+      MAILMAN_DB_PASSWORD: vmail
+      MAILMAN_DB_DATABASE: vmail
+      MAILMAN_ADMIN: admin@example.com
+
+
+volumes:
+  database:
