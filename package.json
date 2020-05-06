@@ -13,6 +13,7 @@
   "author": "Florian Kapfenberger <florian@kapfenbgerger.me>",
   "license": "MIT",
   "dependencies": {
+    "argon2": "^0.26.2",
     "@hapi/joi": "^17.1.1",
     "backpack-core": "^0.8.4",
     "body-parser": "^1.19.0",

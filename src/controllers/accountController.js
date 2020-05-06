@@ -139,7 +139,7 @@ class AccountController {
     }
 
     // check passwords
-    const authenticated = Account.comparePasswords(
+    const authenticated = await Account.comparePasswords(
       currentPassword,
       account.password
     );
