@@ -14,10 +14,10 @@
   <navbar.content>
     <navbar.nav as |nav|>
       <nav.item>
-        <nav.link-to @route="index">Domains</nav.link-to>
+        <nav.link-to @route="domains">Domains</nav.link-to>
       </nav.item>
       <nav.item>
-        <nav.link-to @route="index">TLS Policies</nav.link-to>
+        <nav.link-to @route="policies">TLS Policies</nav.link-to>
       </nav.item>
     </navbar.nav>
     <navbar.nav class="ml-auto" as |nav|>
@@ -25,7 +25,7 @@
         {{#if this.session.isAuthenticated}}
           <BsButton @type="light" @onClick={{fn this.session.invalidate}}>Logout</BsButton>
         {{else}}
-          <nav.link-to @route="index">Login</nav.link-to>
+          <nav.link-to @route="auth.login">Login</nav.link-to>
         {{/if}}
       </nav.item>
     </navbar.nav>
