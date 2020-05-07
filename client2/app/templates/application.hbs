@@ -1,2 +1,37 @@
-<h1>Hello World!</h1>
-{{outlet}}
+
+<BsNavbar
+  @type="dark"
+  @backgroundColor="dark"
+  @toggleBreakpoint="sm"
+  @collapsed={{this.collapsed}}
+  @onCollapse={{fn (mut this.collapsed) true}}
+  @onExpand={{fn (mut this.collapsed) false}}
+  as |navbar|>
+  <div class="navbar-header">
+    {{navbar.toggle}}
+    <LinkTo @route="index" class="navbar-brand">Mailman</LinkTo>>
+  </div>
+  <navbar.content>
+    <navbar.nav as |nav|>
+      <nav.item>
+        <nav.link-to @route="index">Domains</nav.link-to>
+      </nav.item>
+      <nav.item>
+        <nav.link-to @route="index">TLS Policies</nav.link-to>
+      </nav.item>
+    </navbar.nav>
+    <navbar.nav class="ml-auto" as |nav|>
+      <nav.item>
+        {{#if this.session.isAuthenticated}}
+          <BsButton @type="light" @onClick={{fn this.session.invalidate}}>Logout</BsButton>
+        {{else}}
+          <nav.link-to @route="index">Login</nav.link-to>
+        {{/if}}
+      </nav.item>
+    </navbar.nav>
+  </navbar.content>
+</BsNavbar>
+
+<main class="container-md">
+    {{outlet}}
+</main>
