@@ -19,15 +19,6 @@ class PasswordHash {
 }
 
 class SHA512Hash extends PasswordHash {
-
-  constructor() {
-    this.isValidFor = this.isValidFor.bind(this);
-    this.randomSalt = this.randomSalt.bind(this);
-    this.getSaltFromHash = this.getSaltFromHash.bind(this);
-    this.generateHash = this.generateHash.bind(this);
-    this.comparePasswords = this.comparePasswords.bind(this);
-  }
-
   isValidFor(schema) {
     return "SHA512-CRYPT" === schema;
   }
@@ -48,21 +39,14 @@ class SHA512Hash extends PasswordHash {
   }
 
   async comparePasswords(hash, password) {
-    const salt = this.getSaltFromHash(hashPassword);
-    const plainPasswordHash = await this.hashPassword(plainPassword, salt);
+    const salt = this.getSaltFromHash(hash);
+    const currentHash = await this.generateHash(password, salt);
 
-    return plainPasswordHash === hashPassword;
+    return currentHash === hash;
   }
 }
 
 class Argon2iHash extends PasswordHash {
-
-  constructor() {
-    this.isValidFor = this.isValidFor.bind(this);
-    this.generateHash = this.generateHash.bind(this);
-    this.comparePasswords = this.comparePasswords.bind(this);
-  }
-
   isValidFor(schema) {
     return "ARGON2I" === schema;
   }
@@ -165,12 +149,8 @@ class Account {
     let hash = `$${hashParts.join("$")}`;
 
     return await findAsync(hashFunctions, async (hashFunction) => {
-      console.warn("schema: ", schema, " hashOnly: ", hash);
       if (hashFunction.isValidFor(schema)) {
-        console.warn("schema", schema, "fitts", hashFunction.constructor.name);
-        let result = await hashFunction.comparePasswords(hash, plaintext);
-        console.warn("schema", schema, " result: ", result);
-        return result;
+        return await hashFunction.comparePasswords(hash, plaintext);
       }
       return false;
     });

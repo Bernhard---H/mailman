@@ -13,11 +13,11 @@ RUN mkdir -p /opt/mailman/client2
 WORKDIR /opt/mailman
 
 # Install all dependencies of the current project.
-COPY package.json package.json
+COPY package.json package-lock.json ./
 # Client
-COPY client2/package.json client2/package.json
+COPY client2/package.json client2/yarn.lock client2/
 
-RUN npm install && cd client2 && yarn install
+RUN npm ci && cd client2 && yarn install
 
 # Copy all local files into the image.
 COPY . .

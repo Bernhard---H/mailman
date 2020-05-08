@@ -1,1 +1,28 @@
-{{outlet}}
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8 col-lg-6 mt-5">
+    {{#if this.errorMessage}}
+      <div class="alert alert-danger" role="alert">
+        {{this.errorMessage}}
+      </div>
+    {{/if}}
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8 col-lg-6 my-5">
+
+    <form {{on "submit" this.login}}>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <Input @type="email" class="form-control" id="email" @value={{this.email}} />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <Input @type="password" class="form-control" id="password" @value={{this.password}} />
+      </div>
+      <div class="text-right">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+
+  </div>
+</div>

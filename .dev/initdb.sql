@@ -21,10 +21,11 @@ CREATE TABLE `accounts` (
   FOREIGN KEY (`domain`) REFERENCES `domains` (`domain`)
 );
 
+-- add admin account with password: 123456
 insert into accounts (username, domain, password, quota, enabled, sendonly)
 values ('admin',
         'example.com',
-        '{SHA512-CRYPT}$6$8beb58c5e59ee2da$tElO4XZsIQWUEoZgmyxeIxviB0fAEOXreRl3Qgn1R4nN/OiRx3hTXhpInjnE8k4fGvnweEYEOqzB0CcRN3Nsj.',
+        '{SHA512-CRYPT}$6$f6f860ee7c87c80b$q6WIteQt/d045TEm.oAReVo/3xK76J81CQf5njI0GupIRPYTe2vhpBlzLSLGB5XDCyDz46hsu3bpl89PPpG3J.',
         1024,
         true,
         false);
