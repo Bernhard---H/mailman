@@ -1,1 +1,36 @@
-{{outlet}}
+<form>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <div class="input-group">
+      <input type="email" class="form-control" id="username">
+      <div class="input-group-append">
+        <span class="input-group-text">@example.com</span>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Leave empty to keep current password">
+  </div>
+  <div class="form-group">
+    <label for="quota">Quota</label>
+    <div class="input-group">
+      <input type="number" class="form-control" id="quota" aria-describedby="quotaUnit">
+      <div class="input-group-append">
+        <span class="input-group-text" id="quotaUnit">MiB</span>
+      </div>
+    </div>
+  </div>
+  <div class="custom-control custom-switch my-3">
+    <input type="checkbox" class="custom-control-input" id="sendonly">
+    <label class="custom-control-label" for="sendonly">Send-Only</label>
+  </div>
+  <div class="custom-control custom-switch my-3">
+    <input type="checkbox" class="custom-control-input" id="accountEnabled">
+    <label class="custom-control-label" for="accountEnabled">Account Enabled</label>
+  </div>
+  <div class="text-right">
+    <button type="reset" class="btn btn-secondary btn-lg">Cancel</button>
+    <button type="submit" class="btn btn-primary btn-lg">Save</button>
+  </div>
+</form>

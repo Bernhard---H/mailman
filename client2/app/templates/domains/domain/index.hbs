@@ -1,1 +1,38 @@
-{{outlet}}
+<table class="table table-striped table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" class="col-6">E-Mail-Address</th>
+      <th scope="col" class="col-2 text-right pr-md-4">Quota</th>
+      <th scope="col" class="text-center">Send-Only</th>
+      <th scope="col" class="text-center">Enabled</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.model as |account|}}
+      <tr role="link" {{on "click" (fn this.selectAccount account)}}>
+        <td>{{account.username}}<span class="font-weight-lighter">@{{account.domain}}</span></td>
+        <td class="text-right pr-md-4">
+          {{#if (eq account.quota 0)}}
+            <FaIcon @icon="infinity" @prefix="fas" @size="lg" />
+          {{else}}
+            <Numeral @value={{account.quota}} @format="0 ib"/>
+          {{/if}}
+        </td>
+        <td class="text-center">
+          {{#if account.sendonly}}
+            <FaIcon @icon="check-square" @prefix="fas" @size="lg" />
+          {{else}}
+            <FaIcon @icon="square" @size="lg" />
+          {{/if}}
+        </td>
+        <td class="text-center">
+          {{#if account.enabled}}
+            <FaIcon @icon="check-square" @prefix="fas" @size="lg" />
+          {{else}}
+            <FaIcon @icon="square" @size="lg" />
+          {{/if}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

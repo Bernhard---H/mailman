@@ -17,7 +17,7 @@ module.exports = function(environment) {
       }
     },
     fontawesome: {
-      defaultPrefix: 'fas'
+      defaultPrefix: 'far'
     },
 
     APP: {
