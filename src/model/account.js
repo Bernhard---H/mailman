@@ -19,6 +19,15 @@ class PasswordHash {
 }
 
 class SHA512Hash extends PasswordHash {
+
+  constructor() {
+    this.isValidFor = this.isValidFor.bind(this);
+    this.randomSalt = this.randomSalt.bind(this);
+    this.getSaltFromHash = this.getSaltFromHash.bind(this);
+    this.generateHash = this.generateHash.bind(this);
+    this.comparePasswords = this.comparePasswords.bind(this);
+  }
+
   isValidFor(schema) {
     return "SHA512-CRYPT" === schema;
   }
@@ -47,6 +56,13 @@ class SHA512Hash extends PasswordHash {
 }
 
 class Argon2iHash extends PasswordHash {
+
+  constructor() {
+    this.isValidFor = this.isValidFor.bind(this);
+    this.generateHash = this.generateHash.bind(this);
+    this.comparePasswords = this.comparePasswords.bind(this);
+  }
+
   isValidFor(schema) {
     return "ARGON2I" === schema;
   }
@@ -64,6 +80,14 @@ class Argon2iHash extends PasswordHash {
     return await argon2.verify(hash, password);
   }
 }
+
+async function findAsync(arr, asyncCallback) {
+  const promises = arr.map(asyncCallback);
+  const results = await Promise.all(promises);
+  const index = results.findIndex(result => result);
+  return arr[index];
+}
+
 
 const hashFunctions = [new SHA512Hash(), new Argon2iHash()];
 
@@ -136,16 +160,20 @@ class Account {
   }
 
   async comparePasswords(plaintext, hashed) {
-    let [dovecotSchema, hashPart] = hashed.split("$", 2);
+    let [dovecotSchema, ...hashParts] = hashed.split("$");
     let schema = dovecotSchema.substring(1, dovecotSchema.length - 1);
-    let hashOnly = `$${hashPart}`;
+    let hash = `$${hashParts.join("$")}`;
 
-    return await hashFunctions.reduce(async (prev, hashFunction) => {
-      if (!prev && hashFunction.isValidFor(schema)) {
-        return await hashFunction.comparePasswords(hashOnly, plaintext);
+    return await findAsync(hashFunctions, async (hashFunction) => {
+      console.warn("schema: ", schema, " hashOnly: ", hash);
+      if (hashFunction.isValidFor(schema)) {
+        console.warn("schema", schema, "fitts", hashFunction.constructor.name);
+        let result = await hashFunction.comparePasswords(hash, plaintext);
+        console.warn("schema", schema, " result: ", result);
+        return result;
       }
-      return prev;
-    }, Promise.resolve(false));
+      return false;
+    });
   }
 }
 
