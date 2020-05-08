@@ -9,7 +9,7 @@ module.exports = {
       name: "mailman",
       script: "build/main.js",
       env: env.parsed,
-      watch: ["build", "client/build"],
+      watch: ["build", "client2/dist"],
       ignore_watch: ["node_modules"],
       watch_options: {
         followSymlinks: false

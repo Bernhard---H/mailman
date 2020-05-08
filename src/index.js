@@ -33,9 +33,9 @@ if (base.endsWith("/")) {
 }
 
 if (process.env.NODE_ENV === "production") {
-  app.use(base, Express.static(path.resolve("client", "build")));
+  app.use(base, Express.static(path.resolve("client2", "dist")));
   app.use("*", (req, res) => {
-    res.sendFile(path.resolve("client", "build", "index.html"));
+    res.sendFile(path.resolve("client2", "dist", "index.html"));
   });
 }
 
