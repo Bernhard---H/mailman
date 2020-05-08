@@ -11,9 +11,9 @@ Router.map(function() {
     this.route('login');
   });
   this.route('domains', function() {
-    this.route('domain', { path: '/:domain' }, function() {
-      this.route('account', { path: 'account/:username' });
-      this.route('alias', { path: 'alias/:username' });
+    this.route('domain', { path: '/:domain_name' }, function() {
+      this.route('account', { path: 'account/:account_name' });
+      this.route('alias', { path: 'alias/:alias_email' });
     });
   });
   this.route('policies', function() {

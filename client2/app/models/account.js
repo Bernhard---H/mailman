@@ -6,5 +6,5 @@ export default class AccountModel extends Model {
     @attr password;
     @attr("number") quota;
     @attr("boolean") enabled;
-    @attr("boolean") sendonl;
+    @attr("boolean") sendonly;
 }

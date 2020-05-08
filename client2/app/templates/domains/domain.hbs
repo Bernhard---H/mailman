@@ -1,5 +1,7 @@
 <div class="col-12">
-  <h1 class="mb-5">{{this.model.domain}}</h1>
+  <h1 class="mb-5 cursor-pointer" role="button" {{on "click" this.backToIndex}}>
+    {{this.model.domain}}
+  </h1>
 
   {{outlet}}
 </div>

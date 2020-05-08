@@ -4,7 +4,7 @@ export default class DomainsDomainRoute extends Route {
 
   model(params) {
     return {
-      domain: params.domain
+      domain: params.domain_name
     };
   }
 }
